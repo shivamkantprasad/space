@@ -11,7 +11,9 @@ class main:
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
         self.clock = pygame.time.Clock()
+        self.BackGround = pygame.image.load("space.png")
         self.player = player.player(self.width,self.height)
+        self.BackGround = pygame.transform.scale(self.BackGround,(width,height))
 
     def run(self):
         while True:
@@ -22,6 +24,7 @@ class main:
 
     def draw(self):
         self.screen.fill((30, 30, 30))
+        self.screen.blit(self.BackGround, (0, 0))
         self.player.drawBullets(self.screen)
         self.player.draw(self.screen)
         pygame.display.flip()
