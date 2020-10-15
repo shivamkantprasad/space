@@ -4,6 +4,9 @@ import player
 
 class main:
     def __init__(self, width, height):
+        pygame.init()
+        pygame.mixer.music.load('BackGround.mp3')
+        pygame.mixer.music.play(-1)
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((width, height))
