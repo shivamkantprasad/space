@@ -21,7 +21,8 @@ class main:
         self.BackGround = pygame.transform.scale(self.BackGround, (width, height))
         self.alien = self.spawnAlien()
         self.alienBullets = []
-        self.loseSound = pygame.mixer.Sound("expload.wav")
+        self.loseSound = pygame.mixer.Sound("loose.wav")
+        self.winsound = pygame.mixer.Sound("winsound.ogg")
 
     def reset(self):
         self.framCrounter = 0
@@ -30,6 +31,7 @@ class main:
         self.clock = pygame.time.Clock()
         self.alien = self.spawnAlien()
         self.alienBullets = []
+        self.player.bullets = []
 
     def spawnAlien(self):
         alienList = []
@@ -47,7 +49,9 @@ class main:
                 for x in self.alien:
                     if x.rect.x <= 1:
                         newDirection = [1, 0]
-                    if x.rect.x + x.rect.width >= self.width - 1:
+                    elif x.rect.x + x.rect.width >= self.width - 1:
+                        newDirection = [-1, 0]
+                    else:
                         newDirection = [-1, 0]
             for x in self.alien:
                 x.move(self.alienDirection)
@@ -97,11 +101,18 @@ class main:
     def lose(self):
         if self.player.die(self.alienBullets):
             self.reset()
+            pygame.mixer.music.pause()
             pygame.mixer.Sound.play(self.loseSound)
+            pygame.time.wait(716)
+            pygame.mixer.music.unpause()
 
     def win(self):
         if len(self.alien) == 0:
             self.reset()
+            pygame.mixer.music.pause()
+            pygame.mixer.Sound.play(self.winsound)
+            pygame.time.wait(2166)
+            pygame.mixer.music.unpause()
 
     def run(self):
         while True:
