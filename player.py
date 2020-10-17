@@ -1,6 +1,6 @@
 import pygame
 from util import *
-
+import math
 
 class player:
     def __init__(self, width, height):
@@ -39,3 +39,11 @@ class player:
         if len(self.bullets) > 0:
             for x in self.bullets:
                 pygame.draw.circle(screen, (60, 60, 255), x, 10)
+
+    def die(self, bullets):
+        for x in bullets:
+            distance = listsub(self.player.center, x)
+            distance = math.sqrt(distance[0]**2 + distance[1]**2)
+            if distance <= 30:
+                print('died')
+                return True
