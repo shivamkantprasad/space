@@ -51,8 +51,8 @@ class main:
                         newDirection = [1, 0]
                     elif x.rect.x + x.rect.width >= self.width - 1:
                         newDirection = [-1, 0]
-                    else:
-                        newDirection = [-1, 0]
+                if newDirection == -1:
+                	newDirection = [1, 0]
             for x in self.alien:
                 x.move(self.alienDirection)
                 if x.rect.x <= 0 and self.downTimer < -1:
